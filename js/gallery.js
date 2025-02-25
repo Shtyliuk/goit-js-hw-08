@@ -88,9 +88,8 @@ renderGallery(images);
 let modalOpen = false;
 
 gallery.addEventListener('click', (e) => {
-  e.preventDefault(); // блокуємо перехід за посиланням
+  e.preventDefault();
 
-  // Перевіряємо, чи натиснуто саме на картинку
   if (e.target.tagName !== 'IMG') return;
 
   const previewLink = e.target.getAttribute('data-source');

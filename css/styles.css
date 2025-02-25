@@ -26,3 +26,15 @@
   .gallery-image:hover {
     transform: scale(1.045);
   }
+  @media (max-width: 768px) {
+    .gallery {
+      gap: 10px;
+      padding: 10px;
+    }
+  
+    .gallery-image {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
