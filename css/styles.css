@@ -16,6 +16,8 @@
   }
   .gallery-item{
     list-style: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
   }
   .gallery-image {
     width: 360px;
@@ -26,15 +28,30 @@
   .gallery-image:hover {
     transform: scale(1.045);
   }
-  @media (max-width: 768px) {
-    .gallery {
-      gap: 10px;
-      padding: 10px;
-    }
-  
-    .gallery-image {
-      width: 100%;
-      height: auto;
-    }
+  .gallery-item:hover {
+    transform: rotate(-2deg) scale(1.05);
   }
   
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .animated-bg {
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+    background-size: 300% 300%;
+    animation: gradientMove 6s infinite linear;
+  }
+  
+    @media (max-width: 768px) {
+      .gallery {
+        gap: 10px;
+        padding: 10px;
+      }
+    
+      .gallery-image {
+        width: 100%;
+        height: auto;
+      }
+    }
