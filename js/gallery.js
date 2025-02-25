@@ -79,46 +79,41 @@ const images = [
 </li>`;
 }
 
-function addListTemplate(images) {
-    return images.map(listTemplate).join("");
-    
+function renderGallery(images) {
+  gallery.innerHTML = images.map(listTemplate).join('');
 }
 
-function render() {
-    const markup = addListTemplate(images);
-    gallery.innerHTML = markup; 
-    const galleryLinks = document.querySelectorAll(".gallery-link");
-    galleryLinks.forEach(link => {
-        link.addEventListener("click", function (e) {
-            e.preventDefault();
-        });
-    });
-}
-
-render();
+renderGallery(images);
 
 let modalOpen = false;
 
-gallery.addEventListener("click", e => {
-    if (e.target === e.currentTarget) return;
-    const previewLink = e.target.getAttribute('data-source');
-    const instance = basicLightbox.create(`
-    <img src="${previewLink}" width="1112" height="640">
-`,
-{
-    onShow: instance => {
+gallery.addEventListener('click', (e) => {
+  e.preventDefault(); // блокуємо перехід за посиланням
+
+  // Перевіряємо, чи натиснуто саме на картинку
+  if (e.target.tagName !== 'IMG') return;
+
+  const previewLink = e.target.getAttribute('data-source');
+
+  const instance = basicLightbox.create(
+    `<img src="${previewLink}" width="1112" height="640">`,
+    {
+      onShow: () => {
         modalOpen = true;
         document.addEventListener('keydown', closeModal);
-    },
-    onClose: instance => {
+      },
+      onClose: () => {
         modalOpen = false;
         document.removeEventListener('keydown', closeModal);
-    },
-})
-    function closeModal(e) {
-        if(modalOpen && e.code === 'Escape')
-        instance.close()
+      },
     }
+  );
 
-instance.show()
-})
+  function closeModal(e) {
+    if (modalOpen && e.code === 'Escape') {
+      instance.close();
+    }
+  }
+
+  instance.show();
+});
